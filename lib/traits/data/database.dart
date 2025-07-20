@@ -3,17 +3,19 @@ import 'package:e1547/identity/identity.dart';
 import 'package:e1547/interface/interface.dart';
 import 'package:e1547/traits/traits.dart';
 
-// ignore: always_use_package_imports
-import 'database.drift.dart';
-
 @UseRowClass(Traits, generateInsertable: true)
 class TraitsTable extends Table {
-  IntColumn get id => integer().references(IdentitiesTable, #id,
-      onUpdate: KeyAction.cascade, onDelete: KeyAction.cascade)();
+  IntColumn get id => integer().references(
+    IdentitiesTable,
+    #id,
+    onUpdate: KeyAction.cascade,
+    onDelete: KeyAction.cascade,
+  )();
+  IntColumn get userId => integer().nullable()();
   TextColumn get denylist => text().map(JsonSqlConverter.list<String>())();
   TextColumn get homeTags => text()();
   TextColumn get avatar => text().nullable()();
-  TextColumn get favicon => text().nullable()();
+  IntColumn get perPage => integer().nullable()();
 
   @override
   Set<Column<Object>>? get primaryKey => {id};
@@ -25,9 +27,9 @@ class TraitsRepository extends DatabaseAccessor<GeneratedDatabase>
   TraitsRepository(super.db);
 
   StreamFuture<Traits?> getOrNull(int id) {
-    return (select(traitsTable)..where((t) => t.id.equals(id)))
-        .watchSingleOrNull()
-        .future;
+    return (select(
+      traitsTable,
+    )..where((t) => t.id.equals(id))).watchSingleOrNull().future;
   }
 
   StreamFuture<Traits> get(int id) =>

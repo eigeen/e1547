@@ -65,8 +65,9 @@ mixin PostFilterableController<KeyType> on DataController<KeyType, Post> {
   List<Post>? filter(List<Post>? items) {
     List<String> denylist = [];
     if (denying && filterMode != PostFilterMode.unavailable) {
-      denylist =
-          client.traits.value.denylist.whereNot(_allowedTags.contains).toList();
+      denylist = client.traits.value.denylist
+          .whereNot(_allowedTags.contains)
+          .toList();
     }
 
     Map<Post, List<String>>? previousDeniedPosts;
@@ -88,9 +89,9 @@ mixin PostFilterableController<KeyType> on DataController<KeyType, Post> {
       if (previousDeniedPosts?.containsKey(item) ?? false) {
         deniers = previousDeniedPosts![item]!;
       } else {
-        deniers = item.getDeniers(denylist);
+        deniers = item.getDeniers(denylist).toList();
       }
-      if (deniers != null) {
+      if (deniers.isNotEmpty) {
         _deniedPosts![item] = deniers;
         if (filterMode != PostFilterMode.plain) return true;
       }
@@ -109,8 +110,4 @@ mixin PostFilterableController<KeyType> on DataController<KeyType, Post> {
   }
 }
 
-enum PostFilterMode {
-  unavailable,
-  filtering,
-  plain,
-}
+enum PostFilterMode { unavailable, filtering, plain }

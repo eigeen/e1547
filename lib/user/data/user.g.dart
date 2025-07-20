@@ -7,12 +7,12 @@ part of 'user.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      avatarId: json['avatar_id'] as int?,
-      about: json['about'] == null ? null : UserAbout.fromJson(json['about']),
-      stats: json['stats'] == null ? null : UserStats.fromJson(json['stats']),
-    );
+  id: (json['id'] as num).toInt(),
+  name: json['name'] as String,
+  avatarId: (json['avatar_id'] as num?)?.toInt(),
+  about: json['about'] == null ? null : UserAbout.fromJson(json['about']),
+  stats: json['stats'] == null ? null : UserStats.fromJson(json['stats']),
+);
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
@@ -30,10 +30,7 @@ _$UserAboutImpl _$$UserAboutImplFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$$UserAboutImplToJson(_$UserAboutImpl instance) =>
-    <String, dynamic>{
-      'bio': instance.bio,
-      'comission': instance.comission,
-    };
+    <String, dynamic>{'bio': instance.bio, 'comission': instance.comission};
 
 _$UserStatsImpl _$$UserStatsImplFromJson(Map<String, dynamic> json) =>
     _$UserStatsImpl(
@@ -41,11 +38,11 @@ _$UserStatsImpl _$$UserStatsImplFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['created_at'] as String),
       levelString: json['level_string'] as String?,
-      favoriteCount: json['favorite_count'] as int?,
-      postUpdateCount: json['post_update_count'] as int?,
-      postUploadCount: json['post_upload_count'] as int?,
-      forumPostCount: json['forum_post_count'] as int?,
-      commentCount: json['comment_count'] as int?,
+      favoriteCount: (json['favorite_count'] as num?)?.toInt(),
+      postUpdateCount: (json['post_update_count'] as num?)?.toInt(),
+      postUploadCount: (json['post_upload_count'] as num?)?.toInt(),
+      forumPostCount: (json['forum_post_count'] as num?)?.toInt(),
+      commentCount: (json['comment_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$UserStatsImplToJson(_$UserStatsImpl instance) =>

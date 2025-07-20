@@ -5,11 +5,9 @@ import 'package:e1547/post/post.dart';
 import 'package:flutter/foundation.dart';
 
 class PoolController extends PageClientDataController<Pool> {
-  PoolController({
-    required this.client,
-    QueryMap? query,
-  })  : _query = query ?? QueryMap(),
-        thumbnails = ThumbnailController(client: client);
+  PoolController({required this.client, QueryMap? query})
+    : _query = query ?? QueryMap(),
+      thumbnails = ThumbnailController(client: client);
 
   @override
   final Client client;
@@ -51,13 +49,11 @@ class PoolController extends PageClientDataController<Pool> {
 
 class PoolsProvider extends SubChangeNotifierProvider<Client, PoolController> {
   PoolsProvider({QueryMap? search, super.child, super.builder})
-      : super(
-          create: (context, client) => PoolController(
-            client: client,
-            query: search,
-          ),
-          keys: (context) => [search],
-        );
+    : super(
+        create: (context, client) =>
+            PoolController(client: client, query: search),
+        keys: (context) => [search],
+      );
 }
 
 class ThumbnailController extends PostController {
@@ -82,11 +78,7 @@ class ThumbnailController extends PostController {
     if (ids == null) return [];
     List<int> available = rawItems?.map((e) => e.id).toList() ?? [];
     ids.removeWhere(available.contains);
-    return client.posts.byIds(
-      ids: ids,
-      force: force,
-      cancelToken: cancelToken,
-    );
+    return client.posts.byIds(ids: ids, force: force, cancelToken: cancelToken);
   }
 }
 
@@ -95,20 +87,17 @@ class PoolPostController extends PostController {
     required super.client,
     required this.id,
     bool orderByOldest = true,
-  }) : super(
-          orderPools: orderByOldest,
-          canSearch: false,
-        );
+  }) : super(orderPools: orderByOldest, canSearch: false);
 
   final int id;
 
   @override
   @protected
-  Future<List<Post>> fetch(int page, bool force) async => client.pools.byPool(
-        id: id,
-        page: page,
-        orderByOldest: orderPools,
-        force: force,
-        cancelToken: cancelToken,
-      );
+  Future<List<Post>> fetch(int page, bool force) async => client.posts.byPool(
+    id: id,
+    page: page,
+    orderByOldest: orderPools,
+    force: force,
+    cancelToken: cancelToken,
+  );
 }

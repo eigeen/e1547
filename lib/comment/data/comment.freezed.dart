@@ -12,7 +12,8 @@ part of 'comment.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Comment _$CommentFromJson(Map<String, dynamic> json) {
   return _Comment.fromJson(json);
@@ -26,12 +27,17 @@ mixin _$Comment {
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   int get creatorId => throw _privateConstructorUsedError;
-  String? get creatorName => throw _privateConstructorUsedError;
+  String get creatorName => throw _privateConstructorUsedError;
   VoteInfo? get vote => throw _privateConstructorUsedError;
   WarningType? get warning => throw _privateConstructorUsedError;
+  bool get hidden => throw _privateConstructorUsedError;
 
+  /// Serializes this Comment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Comment
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CommentCopyWith<Comment> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -40,16 +46,18 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res, Comment>;
   @useResult
-  $Res call(
-      {int id,
-      int postId,
-      String body,
-      DateTime createdAt,
-      DateTime updatedAt,
-      int creatorId,
-      String? creatorName,
-      VoteInfo? vote,
-      WarningType? warning});
+  $Res call({
+    int id,
+    int postId,
+    String body,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int creatorId,
+    String creatorName,
+    VoteInfo? vote,
+    WarningType? warning,
+    bool hidden,
+  });
 }
 
 /// @nodoc
@@ -62,6 +70,8 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Comment
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -71,68 +81,79 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? creatorId = null,
-    Object? creatorName = freezed,
+    Object? creatorName = null,
     Object? vote = freezed,
     Object? warning = freezed,
+    Object? hidden = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      postId: null == postId
-          ? _value.postId
-          : postId // ignore: cast_nullable_to_non_nullable
-              as int,
-      body: null == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      creatorId: null == creatorId
-          ? _value.creatorId
-          : creatorId // ignore: cast_nullable_to_non_nullable
-              as int,
-      creatorName: freezed == creatorName
-          ? _value.creatorName
-          : creatorName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vote: freezed == vote
-          ? _value.vote
-          : vote // ignore: cast_nullable_to_non_nullable
-              as VoteInfo?,
-      warning: freezed == warning
-          ? _value.warning
-          : warning // ignore: cast_nullable_to_non_nullable
-              as WarningType?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            postId: null == postId
+                ? _value.postId
+                : postId // ignore: cast_nullable_to_non_nullable
+                      as int,
+            body: null == body
+                ? _value.body
+                : body // ignore: cast_nullable_to_non_nullable
+                      as String,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            updatedAt: null == updatedAt
+                ? _value.updatedAt
+                : updatedAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            creatorId: null == creatorId
+                ? _value.creatorId
+                : creatorId // ignore: cast_nullable_to_non_nullable
+                      as int,
+            creatorName: null == creatorName
+                ? _value.creatorName
+                : creatorName // ignore: cast_nullable_to_non_nullable
+                      as String,
+            vote: freezed == vote
+                ? _value.vote
+                : vote // ignore: cast_nullable_to_non_nullable
+                      as VoteInfo?,
+            warning: freezed == warning
+                ? _value.warning
+                : warning // ignore: cast_nullable_to_non_nullable
+                      as WarningType?,
+            hidden: null == hidden
+                ? _value.hidden
+                : hidden // ignore: cast_nullable_to_non_nullable
+                      as bool,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
   factory _$$CommentImplCopyWith(
-          _$CommentImpl value, $Res Function(_$CommentImpl) then) =
-      __$$CommentImplCopyWithImpl<$Res>;
+    _$CommentImpl value,
+    $Res Function(_$CommentImpl) then,
+  ) = __$$CommentImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      int postId,
-      String body,
-      DateTime createdAt,
-      DateTime updatedAt,
-      int creatorId,
-      String? creatorName,
-      VoteInfo? vote,
-      WarningType? warning});
+  $Res call({
+    int id,
+    int postId,
+    String body,
+    DateTime createdAt,
+    DateTime updatedAt,
+    int creatorId,
+    String creatorName,
+    VoteInfo? vote,
+    WarningType? warning,
+    bool hidden,
+  });
 }
 
 /// @nodoc
@@ -140,9 +161,12 @@ class __$$CommentImplCopyWithImpl<$Res>
     extends _$CommentCopyWithImpl<$Res, _$CommentImpl>
     implements _$$CommentImplCopyWith<$Res> {
   __$$CommentImplCopyWithImpl(
-      _$CommentImpl _value, $Res Function(_$CommentImpl) _then)
-      : super(_value, _then);
+    _$CommentImpl _value,
+    $Res Function(_$CommentImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Comment
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -152,64 +176,73 @@ class __$$CommentImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? creatorId = null,
-    Object? creatorName = freezed,
+    Object? creatorName = null,
     Object? vote = freezed,
     Object? warning = freezed,
+    Object? hidden = null,
   }) {
-    return _then(_$CommentImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      postId: null == postId
-          ? _value.postId
-          : postId // ignore: cast_nullable_to_non_nullable
-              as int,
-      body: null == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      creatorId: null == creatorId
-          ? _value.creatorId
-          : creatorId // ignore: cast_nullable_to_non_nullable
-              as int,
-      creatorName: freezed == creatorName
-          ? _value.creatorName
-          : creatorName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vote: freezed == vote
-          ? _value.vote
-          : vote // ignore: cast_nullable_to_non_nullable
-              as VoteInfo?,
-      warning: freezed == warning
-          ? _value.warning
-          : warning // ignore: cast_nullable_to_non_nullable
-              as WarningType?,
-    ));
+    return _then(
+      _$CommentImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        postId: null == postId
+            ? _value.postId
+            : postId // ignore: cast_nullable_to_non_nullable
+                  as int,
+        body: null == body
+            ? _value.body
+            : body // ignore: cast_nullable_to_non_nullable
+                  as String,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        updatedAt: null == updatedAt
+            ? _value.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        creatorId: null == creatorId
+            ? _value.creatorId
+            : creatorId // ignore: cast_nullable_to_non_nullable
+                  as int,
+        creatorName: null == creatorName
+            ? _value.creatorName
+            : creatorName // ignore: cast_nullable_to_non_nullable
+                  as String,
+        vote: freezed == vote
+            ? _value.vote
+            : vote // ignore: cast_nullable_to_non_nullable
+                  as VoteInfo?,
+        warning: freezed == warning
+            ? _value.warning
+            : warning // ignore: cast_nullable_to_non_nullable
+                  as WarningType?,
+        hidden: null == hidden
+            ? _value.hidden
+            : hidden // ignore: cast_nullable_to_non_nullable
+                  as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$CommentImpl implements _Comment {
-  const _$CommentImpl(
-      {required this.id,
-      required this.postId,
-      required this.body,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.creatorId,
-      required this.creatorName,
-      required this.vote,
-      required this.warning});
+  const _$CommentImpl({
+    required this.id,
+    required this.postId,
+    required this.body,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.creatorId,
+    required this.creatorName,
+    required this.vote,
+    required this.warning,
+    required this.hidden,
+  });
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentImplFromJson(json);
@@ -227,15 +260,17 @@ class _$CommentImpl implements _Comment {
   @override
   final int creatorId;
   @override
-  final String? creatorName;
+  final String creatorName;
   @override
   final VoteInfo? vote;
   @override
   final WarningType? warning;
+  @override
+  final bool hidden;
 
   @override
   String toString() {
-    return 'Comment(id: $id, postId: $postId, body: $body, createdAt: $createdAt, updatedAt: $updatedAt, creatorId: $creatorId, creatorName: $creatorName, vote: $vote, warning: $warning)';
+    return 'Comment(id: $id, postId: $postId, body: $body, createdAt: $createdAt, updatedAt: $updatedAt, creatorId: $creatorId, creatorName: $creatorName, vote: $vote, warning: $warning, hidden: $hidden)';
   }
 
   @override
@@ -255,15 +290,29 @@ class _$CommentImpl implements _Comment {
             (identical(other.creatorName, creatorName) ||
                 other.creatorName == creatorName) &&
             (identical(other.vote, vote) || other.vote == vote) &&
-            (identical(other.warning, warning) || other.warning == warning));
+            (identical(other.warning, warning) || other.warning == warning) &&
+            (identical(other.hidden, hidden) || other.hidden == hidden));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, postId, body, createdAt,
-      updatedAt, creatorId, creatorName, vote, warning);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    postId,
+    body,
+    createdAt,
+    updatedAt,
+    creatorId,
+    creatorName,
+    vote,
+    warning,
+    hidden,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Comment
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommentImplCopyWith<_$CommentImpl> get copyWith =>
@@ -271,23 +320,23 @@ class _$CommentImpl implements _Comment {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CommentImplToJson(
-      this,
-    );
+    return _$$CommentImplToJson(this);
   }
 }
 
 abstract class _Comment implements Comment {
-  const factory _Comment(
-      {required final int id,
-      required final int postId,
-      required final String body,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      required final int creatorId,
-      required final String? creatorName,
-      required final VoteInfo? vote,
-      required final WarningType? warning}) = _$CommentImpl;
+  const factory _Comment({
+    required final int id,
+    required final int postId,
+    required final String body,
+    required final DateTime createdAt,
+    required final DateTime updatedAt,
+    required final int creatorId,
+    required final String creatorName,
+    required final VoteInfo? vote,
+    required final WarningType? warning,
+    required final bool hidden,
+  }) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -304,13 +353,18 @@ abstract class _Comment implements Comment {
   @override
   int get creatorId;
   @override
-  String? get creatorName;
+  String get creatorName;
   @override
   VoteInfo? get vote;
   @override
   WarningType? get warning;
   @override
-  @JsonKey(ignore: true)
+  bool get hidden;
+
+  /// Create a copy of Comment
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommentImplCopyWith<_$CommentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,12 +1,8 @@
 import 'dart:math';
 
 import 'package:drift/drift.dart';
-import 'package:e1547/client/client.dart';
 import 'package:e1547/identity/identity.dart';
 import 'package:e1547/interface/interface.dart';
-
-// ignore: always_use_package_imports
-import 'database.drift.dart';
 
 class NullToEmptyStringSqlConverter extends TypeConverter<String?, String> {
   const NullToEmptyStringSqlConverter();
@@ -22,7 +18,6 @@ class NullToEmptyStringSqlConverter extends TypeConverter<String?, String> {
 class IdentitiesTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get host => text()();
-  TextColumn get type => textEnum<ClientType>()();
   TextColumn get username =>
       text().map(const NullToEmptyStringSqlConverter())();
   TextColumn get headers =>
@@ -30,8 +25,8 @@ class IdentitiesTable extends Table {
 
   @override
   List<Set<Column<Object>>>? get uniqueKeys => [
-        {host, username},
-      ];
+    {host, username},
+  ];
 }
 
 @DriftAccessor(tables: [IdentitiesTable])
@@ -42,16 +37,14 @@ class IdentityRepository extends DatabaseAccessor<GeneratedDatabase>
   StreamFuture<int> length() {
     final Expression<int> count = identitiesTable.id.count();
 
-    return (selectOnly(identitiesTable)..addColumns([count]))
-        .map((row) => row.read(count)!)
-        .watchSingle()
-        .future;
+    return (selectOnly(
+      identitiesTable,
+    )..addColumns([count])).map((row) => row.read(count)!).watchSingle().future;
   }
 
-  StreamFuture<Identity?> getOrNull(int id) =>
-      (select(identitiesTable)..where((tbl) => tbl.id.equals(id)))
-          .watchSingleOrNull()
-          .future;
+  StreamFuture<Identity?> getOrNull(int id) => (select(
+    identitiesTable,
+  )..where((tbl) => tbl.id.equals(id))).watchSingleOrNull().future;
 
   StreamFuture<Identity> get(int id) =>
       getOrNull(id).stream.map((e) => e!).future;
@@ -65,15 +58,17 @@ class IdentityRepository extends DatabaseAccessor<GeneratedDatabase>
     final selectable = select(identitiesTable)
       ..orderBy([
         (t) => OrderingTerm(expression: t.host),
-        (t) => OrderingTerm(expression: t.username)
+        (t) => OrderingTerm(expression: t.username),
       ]);
     if (nameRegex != null) {
-      selectable
-          .where((tbl) => tbl.username.regexp(nameRegex, caseSensitive: false));
+      selectable.where(
+        (tbl) => tbl.username.regexp(nameRegex, caseSensitive: false),
+      );
     }
     if (hostRegex != null) {
-      selectable
-          .where((tbl) => tbl.host.regexp(hostRegex, caseSensitive: false));
+      selectable.where(
+        (tbl) => tbl.host.regexp(hostRegex, caseSensitive: false),
+      );
     }
     assert(
       offset == null || limit != null,
@@ -101,10 +96,7 @@ class IdentityRepository extends DatabaseAccessor<GeneratedDatabase>
     ).watch().future;
   }
 
-  StreamFuture<List<Identity>> all({
-    String? nameRegex,
-    String? hostRegex,
-  }) {
+  StreamFuture<List<Identity>> all({String? nameRegex, String? hostRegex}) {
     return _queryExpression(
       nameRegex: nameRegex,
       hostRegex: hostRegex,
@@ -115,29 +107,28 @@ class IdentityRepository extends DatabaseAccessor<GeneratedDatabase>
       into(identitiesTable).insertReturning(item.toCompanion());
 
   Future<void> addAll(List<IdentityRequest> items) async => batch(
-        (batch) => batch.insertAll(
-          identitiesTable,
-          items.map((item) => item.toCompanion()),
-        ),
-      );
+    (batch) => batch.insertAll(
+      identitiesTable,
+      items.map((item) => item.toCompanion()),
+    ),
+  );
 
   Future<void> remove(Identity item) async =>
       (delete(identitiesTable)..where((tbl) => tbl.id.equals(item.id))).go();
 
-  Future<void> removeAll(List<Identity> items) async => (delete(identitiesTable)
-        ..where((tbl) => tbl.id.isIn(items.map((e) => e.id))))
-      .go();
+  Future<void> removeAll(List<Identity> items) async => (delete(
+    identitiesTable,
+  )..where((tbl) => tbl.id.isIn(items.map((e) => e.id)))).go();
 
-  Future<void> replace(Identity item) async =>
-      (update(identitiesTable)..where((tbl) => tbl.id.equals(item.id)))
-          .write(item.toInsertable());
+  Future<void> replace(Identity item) async => (update(
+    identitiesTable,
+  )..where((tbl) => tbl.id.equals(item.id))).write(item.toInsertable());
 }
 
 extension IdentityRequestCompanion on IdentityRequest {
   IdentityCompanion toCompanion() => IdentityCompanion(
-        host: Value(normalizeHostUrl(host)),
-        type: Value(type),
-        username: Value(username),
-        headers: Value(headers),
-      );
+    host: Value(normalizeHostUrl(host)),
+    username: Value(username),
+    headers: Value(headers),
+  );
 }

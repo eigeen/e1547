@@ -67,21 +67,20 @@ final class AppInfo extends PackageInfo {
     required String buildNumber,
     String buildSignature = '',
     Source source = Source.UNKNOWN,
-  }) async =>
-      _instance = AppInfo._(
-        developer: developer,
-        github: github,
-        discord: discord,
-        website: website,
-        kofi: kofi,
-        email: email,
-        source: source,
-        appName: appName,
-        packageName: packageName,
-        version: version,
-        buildNumber: buildNumber,
-        buildSignature: buildSignature,
-      );
+  }) async => _instance = AppInfo._(
+    developer: developer,
+    github: github,
+    discord: discord,
+    website: website,
+    kofi: kofi,
+    email: email,
+    source: source,
+    appName: appName,
+    packageName: packageName,
+    version: version,
+    buildNumber: buildNumber,
+    buildSignature: buildSignature,
+  );
 
   static AppInfo? _instance;
   static AppInfo get instance {
@@ -118,8 +117,8 @@ final class AppInfo extends PackageInfo {
 
 extension StoreSource on Source {
   bool get isFromStore => ![
-        Source.IS_INSTALLED_FROM_LOCAL_SOURCE,
-        Source.IS_INSTALLED_FROM_OTHER_SOURCE,
-        Source.UNKNOWN,
-      ].contains(this);
+    Source.IS_INSTALLED_FROM_LOCAL_SOURCE,
+    Source.IS_INSTALLED_FROM_OTHER_SOURCE,
+    Source.UNKNOWN,
+  ].contains(this);
 }

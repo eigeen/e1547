@@ -21,12 +21,14 @@ class Credentials with _$Credentials {
       'Basic ${base64Encode(utf8.encode('$username:$password'))}';
 
   static Credentials? parse(String auth) {
-    RegExpMatch? fullBasicMatch =
-        RegExp(r'Basic (?<encoded>[A-Za-z\d/=]+)').firstMatch(auth);
+    RegExpMatch? fullBasicMatch = RegExp(
+      r'Basic (?<encoded>[A-Za-z\d/=]+)',
+    ).firstMatch(auth);
     if (fullBasicMatch == null) return null;
     RegExpMatch? credentialMatch = RegExp(r'(?<username>.+):(?<password>.+)')
         .firstMatch(
-            utf8.decode(base64Decode(fullBasicMatch.namedGroup('encoded')!)));
+          utf8.decode(base64Decode(fullBasicMatch.namedGroup('encoded')!)),
+        );
     if (credentialMatch == null) return null;
     return Credentials(
       username: credentialMatch.namedGroup('username')!,

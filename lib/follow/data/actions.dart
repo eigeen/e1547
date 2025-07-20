@@ -6,7 +6,7 @@ import 'package:e1547/tag/tag.dart';
 extension Updating on Follow {
   String get name => title ?? tagToName(tags);
 
-  bool get isSingle => tagIsSingle(tags);
+  bool get isSingle => !(tags.contains(' ') || tags.contains(':'));
 
   Follow withTitle(String title) {
     Follow updated = this;
@@ -27,12 +27,8 @@ extension Updating on Follow {
   Follow withPool(Pool pool) {
     Follow updated = this;
     updated = updated.withTitle(tagToName(pool.name));
-    if (pool.activity?.isActive case final isActive?) {
-      if (!isActive) {
-        updated = updated.copyWith(
-          type: FollowType.bookmark,
-        );
-      }
+    if (!pool.active) {
+      updated = updated.copyWith(type: FollowType.bookmark);
     }
     return updated;
   }
@@ -62,15 +58,10 @@ extension Updating on Follow {
     }
     if (post != null) {
       if (updated.latest == null || updated.latest! < post.id) {
-        updated = updated.copyWith(
-          latest: post.id,
-          thumbnail: post.sample,
-        );
+        updated = updated.copyWith(latest: post.id, thumbnail: post.sample);
       } else {
         if (updated.thumbnail != post.sample) {
-          updated = updated.copyWith(
-            thumbnail: post.sample,
-          );
+          updated = updated.copyWith(thumbnail: post.sample);
         }
       }
     }

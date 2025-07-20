@@ -12,7 +12,8 @@ part of 'tag.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Tag _$TagFromJson(Map<String, dynamic> json) {
   return _Tag.fromJson(json);
@@ -25,8 +26,12 @@ mixin _$Tag {
   int get count => throw _privateConstructorUsedError;
   int get category => throw _privateConstructorUsedError;
 
+  /// Serializes this Tag to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TagCopyWith<Tag> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -47,6 +52,8 @@ class _$TagCopyWithImpl<$Res, $Val extends Tag> implements $TagCopyWith<$Res> {
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -55,24 +62,27 @@ class _$TagCopyWithImpl<$Res, $Val extends Tag> implements $TagCopyWith<$Res> {
     Object? count = null,
     Object? category = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            count: null == count
+                ? _value.count
+                : count // ignore: cast_nullable_to_non_nullable
+                      as int,
+            category: null == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                      as int,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -89,8 +99,10 @@ abstract class _$$TagImplCopyWith<$Res> implements $TagCopyWith<$Res> {
 class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
     implements _$$TagImplCopyWith<$Res> {
   __$$TagImplCopyWithImpl(_$TagImpl _value, $Res Function(_$TagImpl) _then)
-      : super(_value, _then);
+    : super(_value, _then);
 
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -99,35 +111,38 @@ class __$$TagImplCopyWithImpl<$Res> extends _$TagCopyWithImpl<$Res, _$TagImpl>
     Object? count = null,
     Object? category = null,
   }) {
-    return _then(_$TagImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      count: null == count
-          ? _value.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+    return _then(
+      _$TagImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        count: null == count
+            ? _value.count
+            : count // ignore: cast_nullable_to_non_nullable
+                  as int,
+        category: null == category
+            ? _value.category
+            : category // ignore: cast_nullable_to_non_nullable
+                  as int,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TagImpl implements _Tag {
-  const _$TagImpl(
-      {required this.id,
-      required this.name,
-      required this.count,
-      required this.category});
+  const _$TagImpl({
+    required this.id,
+    required this.name,
+    required this.count,
+    required this.category,
+  });
 
   factory _$TagImpl.fromJson(Map<String, dynamic> json) =>
       _$$TagImplFromJson(json);
@@ -158,11 +173,13 @@ class _$TagImpl implements _Tag {
                 other.category == category));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, count, category);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TagImplCopyWith<_$TagImpl> get copyWith =>
@@ -170,18 +187,17 @@ class _$TagImpl implements _Tag {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TagImplToJson(
-      this,
-    );
+    return _$$TagImplToJson(this);
   }
 }
 
 abstract class _Tag implements Tag {
-  const factory _Tag(
-      {required final int id,
-      required final String name,
-      required final int count,
-      required final int category}) = _$TagImpl;
+  const factory _Tag({
+    required final int id,
+    required final String name,
+    required final int count,
+    required final int category,
+  }) = _$TagImpl;
 
   factory _Tag.fromJson(Map<String, dynamic> json) = _$TagImpl.fromJson;
 
@@ -193,8 +209,11 @@ abstract class _Tag implements Tag {
   int get count;
   @override
   int get category;
+
+  /// Create a copy of Tag
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TagImplCopyWith<_$TagImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

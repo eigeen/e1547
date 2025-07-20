@@ -7,9 +7,7 @@ export 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 abstract class DataController<KeyType, ItemType> with ChangeNotifier {
   /// A controller for a paged widget.
-  DataController({
-    required this.firstPageKey,
-  }) : _nextPageKey = firstPageKey;
+  DataController({required this.firstPageKey}) : _nextPageKey = firstPageKey;
 
   /// The key for the first page to be fetched.
   final KeyType firstPageKey;
@@ -19,6 +17,7 @@ abstract class DataController<KeyType, ItemType> with ChangeNotifier {
 
   /// List with all items loaded so far.
   List<ItemType>? get rawItems => _rawItems;
+
   set rawItems(List<ItemType>? value) {
     if (value == _rawItems) return;
     _rawItems = value;
@@ -42,6 +41,7 @@ abstract class DataController<KeyType, ItemType> with ChangeNotifier {
 
   /// The current error, if any.
   Object? get error => _error;
+
   set error(Object? value) {
     if (value == _error) return;
     _error = value;
@@ -56,10 +56,6 @@ abstract class DataController<KeyType, ItemType> with ChangeNotifier {
 
   /// Whether this controller has been disposed.
   bool _disposed = false;
-
-  /// The proxy paging controller for this controller.
-  late final PagingController<KeyType, ItemType> paging =
-      ProxyPagingController(this);
 
   /// Retrieves the next page of items.
   @protected
@@ -204,7 +200,6 @@ abstract class DataController<KeyType, ItemType> with ChangeNotifier {
 
   @override
   void dispose() {
-    paging.dispose();
     _disposed = true;
     super.dispose();
   }
@@ -220,18 +215,16 @@ class PageResponse<KeyType, ItemType> {
   /// The response for a page request.
   ///
   /// Is treated as the last page to be added.
-  const PageResponse.last({
-    required List<ItemType> this.items,
-  })  : nextPageKey = null,
-        error = null;
+  const PageResponse.last({required List<ItemType> this.items})
+    : nextPageKey = null,
+      error = null;
 
   /// The response for a page request.
   ///
   /// Is treated as a failed page request.
-  const PageResponse.error({
-    required Object this.error,
-  })  : items = null,
-        nextPageKey = null;
+  const PageResponse.error({required Object this.error})
+    : items = null,
+      nextPageKey = null;
 
   /// The key for the next page.
   ///
@@ -266,4 +259,15 @@ extension DataControllerItemManipulation<KeyType, ItemType>
       throw StateError('$runtimeType doesn\'t own this ${item.runtimeType}');
     }
   }
+}
+
+extension DataControllerPaging<KeyType, ItemType>
+    on DataController<KeyType, ItemType> {
+  PagingState<KeyType, ItemType> get state => PagingState(
+    pages: items != null ? [items!] : null,
+    keys: items != null ? [firstPageKey] : null,
+    error: error,
+    hasNextPage: nextPageKey != null,
+    isLoading: _fetching,
+  );
 }

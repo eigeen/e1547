@@ -25,9 +25,7 @@ Future<void> guardWithLogin({
         action: SnackBarAction(
           label: 'Choose identity',
           onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const IdentitiesPage(),
-            ),
+            MaterialPageRoute(builder: (context) => const IdentitiesPage()),
           ),
         ),
       ),
@@ -36,10 +34,15 @@ Future<void> guardWithLogin({
 }
 
 String? findFavicon(String html) {
-  final headRegExp =
-      RegExp(r'<head>.*?</head>', dotAll: true, caseSensitive: false);
-  final linkRegExp =
-      RegExp(r'<link\s+[^>]*?rel=".*?icon.*?"[^>]*?>', caseSensitive: false);
+  final headRegExp = RegExp(
+    r'<head>.*?</head>',
+    dotAll: true,
+    caseSensitive: false,
+  );
+  final linkRegExp = RegExp(
+    r'<link\s+[^>]*?rel=".*?icon.*?"[^>]*?>',
+    caseSensitive: false,
+  );
   final sizeRegExp = RegExp(r'(\d+)x\d+');
 
   final headMatch = headRegExp.firstMatch(html);

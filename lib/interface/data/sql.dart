@@ -8,7 +8,8 @@ class JsonSqlConverter<T> extends TypeConverter<T, String> {
   const JsonSqlConverter({this.decode});
 
   static JsonSqlConverter<List<R>> list<R>() => JsonSqlConverter<List<R>>(
-      decode: (value) => (value as List<dynamic>).cast<R>());
+    decode: (value) => (value as List<dynamic>).cast<R>(),
+  );
 
   static JsonSqlConverter<Map<String, R>> map<R>() =>
       JsonSqlConverter<Map<String, R>>(

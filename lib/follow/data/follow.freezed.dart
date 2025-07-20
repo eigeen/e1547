@@ -12,7 +12,8 @@ part of 'follow.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Follow _$FollowFromJson(Map<String, dynamic> json) {
   return _Follow.fromJson(json);
@@ -30,8 +31,12 @@ mixin _$Follow {
   String? get thumbnail => throw _privateConstructorUsedError;
   DateTime? get updated => throw _privateConstructorUsedError;
 
+  /// Serializes this Follow to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Follow
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FollowCopyWith<Follow> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -40,16 +45,17 @@ abstract class $FollowCopyWith<$Res> {
   factory $FollowCopyWith(Follow value, $Res Function(Follow) then) =
       _$FollowCopyWithImpl<$Res, Follow>;
   @useResult
-  $Res call(
-      {int id,
-      String tags,
-      String? title,
-      String? alias,
-      FollowType type,
-      int? latest,
-      int? unseen,
-      String? thumbnail,
-      DateTime? updated});
+  $Res call({
+    int id,
+    String tags,
+    String? title,
+    String? alias,
+    FollowType type,
+    int? latest,
+    int? unseen,
+    String? thumbnail,
+    DateTime? updated,
+  });
 }
 
 /// @nodoc
@@ -62,6 +68,8 @@ class _$FollowCopyWithImpl<$Res, $Val extends Follow>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Follow
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -75,64 +83,69 @@ class _$FollowCopyWithImpl<$Res, $Val extends Follow>
     Object? thumbnail = freezed,
     Object? updated = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      tags: null == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      alias: freezed == alias
-          ? _value.alias
-          : alias // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FollowType,
-      latest: freezed == latest
-          ? _value.latest
-          : latest // ignore: cast_nullable_to_non_nullable
-              as int?,
-      unseen: freezed == unseen
-          ? _value.unseen
-          : unseen // ignore: cast_nullable_to_non_nullable
-              as int?,
-      thumbnail: freezed == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updated: freezed == updated
-          ? _value.updated
-          : updated // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            tags: null == tags
+                ? _value.tags
+                : tags // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: freezed == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            alias: freezed == alias
+                ? _value.alias
+                : alias // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as FollowType,
+            latest: freezed == latest
+                ? _value.latest
+                : latest // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            unseen: freezed == unseen
+                ? _value.unseen
+                : unseen // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            thumbnail: freezed == thumbnail
+                ? _value.thumbnail
+                : thumbnail // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            updated: freezed == updated
+                ? _value.updated
+                : updated // ignore: cast_nullable_to_non_nullable
+                      as DateTime?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$FollowImplCopyWith<$Res> implements $FollowCopyWith<$Res> {
   factory _$$FollowImplCopyWith(
-          _$FollowImpl value, $Res Function(_$FollowImpl) then) =
-      __$$FollowImplCopyWithImpl<$Res>;
+    _$FollowImpl value,
+    $Res Function(_$FollowImpl) then,
+  ) = __$$FollowImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String tags,
-      String? title,
-      String? alias,
-      FollowType type,
-      int? latest,
-      int? unseen,
-      String? thumbnail,
-      DateTime? updated});
+  $Res call({
+    int id,
+    String tags,
+    String? title,
+    String? alias,
+    FollowType type,
+    int? latest,
+    int? unseen,
+    String? thumbnail,
+    DateTime? updated,
+  });
 }
 
 /// @nodoc
@@ -140,9 +153,12 @@ class __$$FollowImplCopyWithImpl<$Res>
     extends _$FollowCopyWithImpl<$Res, _$FollowImpl>
     implements _$$FollowImplCopyWith<$Res> {
   __$$FollowImplCopyWithImpl(
-      _$FollowImpl _value, $Res Function(_$FollowImpl) _then)
-      : super(_value, _then);
+    _$FollowImpl _value,
+    $Res Function(_$FollowImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Follow
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -156,60 +172,63 @@ class __$$FollowImplCopyWithImpl<$Res>
     Object? thumbnail = freezed,
     Object? updated = freezed,
   }) {
-    return _then(_$FollowImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      tags: null == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      alias: freezed == alias
-          ? _value.alias
-          : alias // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FollowType,
-      latest: freezed == latest
-          ? _value.latest
-          : latest // ignore: cast_nullable_to_non_nullable
-              as int?,
-      unseen: freezed == unseen
-          ? _value.unseen
-          : unseen // ignore: cast_nullable_to_non_nullable
-              as int?,
-      thumbnail: freezed == thumbnail
-          ? _value.thumbnail
-          : thumbnail // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updated: freezed == updated
-          ? _value.updated
-          : updated // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
+    return _then(
+      _$FollowImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        tags: null == tags
+            ? _value.tags
+            : tags // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: freezed == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        alias: freezed == alias
+            ? _value.alias
+            : alias // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as FollowType,
+        latest: freezed == latest
+            ? _value.latest
+            : latest // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        unseen: freezed == unseen
+            ? _value.unseen
+            : unseen // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        thumbnail: freezed == thumbnail
+            ? _value.thumbnail
+            : thumbnail // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        updated: freezed == updated
+            ? _value.updated
+            : updated // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$FollowImpl implements _Follow {
-  const _$FollowImpl(
-      {required this.id,
-      required this.tags,
-      required this.title,
-      required this.alias,
-      required this.type,
-      required this.latest,
-      required this.unseen,
-      required this.thumbnail,
-      required this.updated});
+  const _$FollowImpl({
+    required this.id,
+    required this.tags,
+    required this.title,
+    required this.alias,
+    required this.type,
+    required this.latest,
+    required this.unseen,
+    required this.thumbnail,
+    required this.updated,
+  });
 
   factory _$FollowImpl.fromJson(Map<String, dynamic> json) =>
       _$$FollowImplFromJson(json);
@@ -255,12 +274,24 @@ class _$FollowImpl implements _Follow {
             (identical(other.updated, updated) || other.updated == updated));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, tags, title, alias, type,
-      latest, unseen, thumbnail, updated);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    tags,
+    title,
+    alias,
+    type,
+    latest,
+    unseen,
+    thumbnail,
+    updated,
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Follow
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FollowImplCopyWith<_$FollowImpl> get copyWith =>
@@ -268,23 +299,22 @@ class _$FollowImpl implements _Follow {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FollowImplToJson(
-      this,
-    );
+    return _$$FollowImplToJson(this);
   }
 }
 
 abstract class _Follow implements Follow {
-  const factory _Follow(
-      {required final int id,
-      required final String tags,
-      required final String? title,
-      required final String? alias,
-      required final FollowType type,
-      required final int? latest,
-      required final int? unseen,
-      required final String? thumbnail,
-      required final DateTime? updated}) = _$FollowImpl;
+  const factory _Follow({
+    required final int id,
+    required final String tags,
+    required final String? title,
+    required final String? alias,
+    required final FollowType type,
+    required final int? latest,
+    required final int? unseen,
+    required final String? thumbnail,
+    required final DateTime? updated,
+  }) = _$FollowImpl;
 
   factory _Follow.fromJson(Map<String, dynamic> json) = _$FollowImpl.fromJson;
 
@@ -306,8 +336,11 @@ abstract class _Follow implements Follow {
   String? get thumbnail;
   @override
   DateTime? get updated;
+
+  /// Create a copy of Follow
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FollowImplCopyWith<_$FollowImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -323,8 +356,12 @@ mixin _$FollowRequest {
   String? get alias => throw _privateConstructorUsedError;
   FollowType get type => throw _privateConstructorUsedError;
 
+  /// Serializes this FollowRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FollowRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FollowRequestCopyWith<FollowRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -332,8 +369,9 @@ mixin _$FollowRequest {
 /// @nodoc
 abstract class $FollowRequestCopyWith<$Res> {
   factory $FollowRequestCopyWith(
-          FollowRequest value, $Res Function(FollowRequest) then) =
-      _$FollowRequestCopyWithImpl<$Res, FollowRequest>;
+    FollowRequest value,
+    $Res Function(FollowRequest) then,
+  ) = _$FollowRequestCopyWithImpl<$Res, FollowRequest>;
   @useResult
   $Res call({String tags, String? title, String? alias, FollowType type});
 }
@@ -348,6 +386,8 @@ class _$FollowRequestCopyWithImpl<$Res, $Val extends FollowRequest>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FollowRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -356,24 +396,27 @@ class _$FollowRequestCopyWithImpl<$Res, $Val extends FollowRequest>
     Object? alias = freezed,
     Object? type = null,
   }) {
-    return _then(_value.copyWith(
-      tags: null == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      alias: freezed == alias
-          ? _value.alias
-          : alias // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FollowType,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            tags: null == tags
+                ? _value.tags
+                : tags // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: freezed == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            alias: freezed == alias
+                ? _value.alias
+                : alias // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as FollowType,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -381,8 +424,9 @@ class _$FollowRequestCopyWithImpl<$Res, $Val extends FollowRequest>
 abstract class _$$FollowRequestImplCopyWith<$Res>
     implements $FollowRequestCopyWith<$Res> {
   factory _$$FollowRequestImplCopyWith(
-          _$FollowRequestImpl value, $Res Function(_$FollowRequestImpl) then) =
-      __$$FollowRequestImplCopyWithImpl<$Res>;
+    _$FollowRequestImpl value,
+    $Res Function(_$FollowRequestImpl) then,
+  ) = __$$FollowRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String tags, String? title, String? alias, FollowType type});
@@ -393,9 +437,12 @@ class __$$FollowRequestImplCopyWithImpl<$Res>
     extends _$FollowRequestCopyWithImpl<$Res, _$FollowRequestImpl>
     implements _$$FollowRequestImplCopyWith<$Res> {
   __$$FollowRequestImplCopyWithImpl(
-      _$FollowRequestImpl _value, $Res Function(_$FollowRequestImpl) _then)
-      : super(_value, _then);
+    _$FollowRequestImpl _value,
+    $Res Function(_$FollowRequestImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of FollowRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -404,35 +451,38 @@ class __$$FollowRequestImplCopyWithImpl<$Res>
     Object? alias = freezed,
     Object? type = null,
   }) {
-    return _then(_$FollowRequestImpl(
-      tags: null == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      alias: freezed == alias
-          ? _value.alias
-          : alias // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FollowType,
-    ));
+    return _then(
+      _$FollowRequestImpl(
+        tags: null == tags
+            ? _value.tags
+            : tags // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: freezed == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        alias: freezed == alias
+            ? _value.alias
+            : alias // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as FollowType,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$FollowRequestImpl implements _FollowRequest {
-  const _$FollowRequestImpl(
-      {required this.tags,
-      this.title,
-      this.alias,
-      this.type = FollowType.update});
+  const _$FollowRequestImpl({
+    required this.tags,
+    this.title,
+    this.alias,
+    this.type = FollowType.update,
+  });
 
   factory _$FollowRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$FollowRequestImplFromJson(json);
@@ -463,11 +513,13 @@ class _$FollowRequestImpl implements _FollowRequest {
             (identical(other.type, type) || other.type == type));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, tags, title, alias, type);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FollowRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FollowRequestImplCopyWith<_$FollowRequestImpl> get copyWith =>
@@ -475,18 +527,17 @@ class _$FollowRequestImpl implements _FollowRequest {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FollowRequestImplToJson(
-      this,
-    );
+    return _$$FollowRequestImplToJson(this);
   }
 }
 
 abstract class _FollowRequest implements FollowRequest {
-  const factory _FollowRequest(
-      {required final String tags,
-      final String? title,
-      final String? alias,
-      final FollowType type}) = _$FollowRequestImpl;
+  const factory _FollowRequest({
+    required final String tags,
+    final String? title,
+    final String? alias,
+    final FollowType type,
+  }) = _$FollowRequestImpl;
 
   factory _FollowRequest.fromJson(Map<String, dynamic> json) =
       _$FollowRequestImpl.fromJson;
@@ -499,8 +550,11 @@ abstract class _FollowRequest implements FollowRequest {
   String? get alias;
   @override
   FollowType get type;
+
+  /// Create a copy of FollowRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FollowRequestImplCopyWith<_$FollowRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -516,8 +570,12 @@ mixin _$FollowUpdate {
   String? get title => throw _privateConstructorUsedError;
   FollowType? get type => throw _privateConstructorUsedError;
 
+  /// Serializes this FollowUpdate to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FollowUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $FollowUpdateCopyWith<FollowUpdate> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -525,8 +583,9 @@ mixin _$FollowUpdate {
 /// @nodoc
 abstract class $FollowUpdateCopyWith<$Res> {
   factory $FollowUpdateCopyWith(
-          FollowUpdate value, $Res Function(FollowUpdate) then) =
-      _$FollowUpdateCopyWithImpl<$Res, FollowUpdate>;
+    FollowUpdate value,
+    $Res Function(FollowUpdate) then,
+  ) = _$FollowUpdateCopyWithImpl<$Res, FollowUpdate>;
   @useResult
   $Res call({int id, String? tags, String? title, FollowType? type});
 }
@@ -541,6 +600,8 @@ class _$FollowUpdateCopyWithImpl<$Res, $Val extends FollowUpdate>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of FollowUpdate
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -549,24 +610,27 @@ class _$FollowUpdateCopyWithImpl<$Res, $Val extends FollowUpdate>
     Object? title = freezed,
     Object? type = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FollowType?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            tags: freezed == tags
+                ? _value.tags
+                : tags // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            title: freezed == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            type: freezed == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as FollowType?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -574,8 +638,9 @@ class _$FollowUpdateCopyWithImpl<$Res, $Val extends FollowUpdate>
 abstract class _$$FollowUpdateImplCopyWith<$Res>
     implements $FollowUpdateCopyWith<$Res> {
   factory _$$FollowUpdateImplCopyWith(
-          _$FollowUpdateImpl value, $Res Function(_$FollowUpdateImpl) then) =
-      __$$FollowUpdateImplCopyWithImpl<$Res>;
+    _$FollowUpdateImpl value,
+    $Res Function(_$FollowUpdateImpl) then,
+  ) = __$$FollowUpdateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int id, String? tags, String? title, FollowType? type});
@@ -586,9 +651,12 @@ class __$$FollowUpdateImplCopyWithImpl<$Res>
     extends _$FollowUpdateCopyWithImpl<$Res, _$FollowUpdateImpl>
     implements _$$FollowUpdateImplCopyWith<$Res> {
   __$$FollowUpdateImplCopyWithImpl(
-      _$FollowUpdateImpl _value, $Res Function(_$FollowUpdateImpl) _then)
-      : super(_value, _then);
+    _$FollowUpdateImpl _value,
+    $Res Function(_$FollowUpdateImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of FollowUpdate
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -597,32 +665,38 @@ class __$$FollowUpdateImplCopyWithImpl<$Res>
     Object? title = freezed,
     Object? type = freezed,
   }) {
-    return _then(_$FollowUpdateImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      tags: freezed == tags
-          ? _value.tags
-          : tags // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      type: freezed == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as FollowType?,
-    ));
+    return _then(
+      _$FollowUpdateImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        tags: freezed == tags
+            ? _value.tags
+            : tags // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        title: freezed == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        type: freezed == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as FollowType?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$FollowUpdateImpl implements _FollowUpdate {
-  const _$FollowUpdateImpl(
-      {required this.id, this.tags, this.title, this.type});
+  const _$FollowUpdateImpl({
+    required this.id,
+    this.tags,
+    this.title,
+    this.type,
+  });
 
   factory _$FollowUpdateImpl.fromJson(Map<String, dynamic> json) =>
       _$$FollowUpdateImplFromJson(json);
@@ -652,11 +726,13 @@ class _$FollowUpdateImpl implements _FollowUpdate {
             (identical(other.type, type) || other.type == type));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, tags, title, type);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FollowUpdate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FollowUpdateImplCopyWith<_$FollowUpdateImpl> get copyWith =>
@@ -664,18 +740,17 @@ class _$FollowUpdateImpl implements _FollowUpdate {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FollowUpdateImplToJson(
-      this,
-    );
+    return _$$FollowUpdateImplToJson(this);
   }
 }
 
 abstract class _FollowUpdate implements FollowUpdate {
-  const factory _FollowUpdate(
-      {required final int id,
-      final String? tags,
-      final String? title,
-      final FollowType? type}) = _$FollowUpdateImpl;
+  const factory _FollowUpdate({
+    required final int id,
+    final String? tags,
+    final String? title,
+    final FollowType? type,
+  }) = _$FollowUpdateImpl;
 
   factory _FollowUpdate.fromJson(Map<String, dynamic> json) =
       _$FollowUpdateImpl.fromJson;
@@ -688,8 +763,11 @@ abstract class _FollowUpdate implements FollowUpdate {
   String? get title;
   @override
   FollowType? get type;
+
+  /// Create a copy of FollowUpdate
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FollowUpdateImplCopyWith<_$FollowUpdateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

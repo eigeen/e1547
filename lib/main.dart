@@ -9,17 +9,15 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   VideoService.ensureInitialized();
   await initializeAppInfo();
-  Logs logs = await initializeLogger(path: await getTemporaryAppDirectory());
-  await prepareForegroundIsolate();
+  Logs logs = await initializeLogger();
+  unawaited(initializeBackgroundTasks());
   AppStorage storage = await initializeAppStorage();
-  WindowManager? windowManager = await initializeWindowManager();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   runApp(
     MultiProvider(
       providers: [
         Provider.value(value: logs),
         Provider.value(value: storage),
-        Provider.value(value: windowManager),
       ],
       child: const App(),
     ),

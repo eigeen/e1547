@@ -1,28 +1,24 @@
 import 'package:e1547/tag/tag.dart';
 import 'package:flutter/material.dart';
 
-final List<String> wikiMetaTags =
-    List.unmodifiable(['help:', 'e621:', 'howto:']);
-
-String sortTags(String tags) => TagMap.parse(tags).toString();
+final List<String> wikiMetaTags = List.unmodifiable([
+  'help:',
+  'e621:',
+  'howto:',
+]);
 
 /// Removes prefixes from tags.
-String tagToRaw(String tags) => tags
-    .trim()
-    .split(' ')
-    .map((tag) => tag.replaceAllMapped(RegExp(r'^[-~]'), (_) => ''))
-    .join(' ');
+String tagToRaw(String tags) => TagMap(
+  tags,
+).tags.map((e) => e.replaceFirst(RegExp(r'^[-~]'), '')).join(' ');
 
 /// Removes underscored from tags, adds commas.
 String tagToName(String tags) =>
-    tags.trim().split(' ').join(', ').replaceAll('_', ' ');
+    TagMap(tags).tags.map((e) => e.replaceAll('_', ' ')).join(', ');
 
 /// Removes underscores and prefixes from tags
 String tagToTitle(String tags) => tagToName(tagToRaw(tags));
 
-bool tagIsSingle(String tags) => !(tags.contains(' ') || tags.contains(':'));
-
-// TODO: Move this to E621Client, then make a client for this
 enum TagCategory {
   general,
   species,
@@ -31,6 +27,7 @@ enum TagCategory {
   meta,
   lore,
   artist,
+  contributor,
   invalid;
 
   Color? get color {
@@ -49,8 +46,9 @@ enum TagCategory {
         return Colors.pink[300];
       case artist:
         return Colors.deepPurple[300];
+      case contributor:
+        return Colors.blueGrey[300];
       case invalid:
-      default:
         return Colors.grey[300];
     }
   }
@@ -71,10 +69,10 @@ enum TagCategory {
         return 8;
       case artist:
         return 1;
+      case contributor:
+        return 2;
       case invalid:
         return 6;
-      default:
-        return -1;
     }
   }
 

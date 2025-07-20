@@ -25,12 +25,7 @@ Future<bool> replyComment({
 Future<bool> editComment({
   required BuildContext context,
   required Comment comment,
-}) =>
-    writeComment(
-      postId: comment.postId,
-      context: context,
-      comment: comment,
-    );
+}) => writeComment(postId: comment.postId, context: context, comment: comment);
 
 Future<bool> writeComment({
   required BuildContext context,
@@ -49,16 +44,16 @@ Future<bool> writeComment({
           if (text.isNotEmpty) {
             try {
               if (comment == null) {
-                await context
-                    .read<Client>()
-                    .comments
-                    .create(postId: postId, content: text);
+                await context.read<Client>().comments.create(
+                  postId: postId,
+                  content: text,
+                );
               } else {
                 await context.read<Client>().comments.update(
-                      id: comment.id,
-                      postId: postId,
-                      content: text,
-                    );
+                  id: comment.id,
+                  postId: postId,
+                  content: text,
+                );
               }
             } on ClientException {
               return 'Failed to send comment!';

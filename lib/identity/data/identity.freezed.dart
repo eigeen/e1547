@@ -12,7 +12,8 @@ part of 'identity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 Identity _$IdentityFromJson(Map<String, dynamic> json) {
   return _Identity.fromJson(json);
@@ -22,12 +23,15 @@ Identity _$IdentityFromJson(Map<String, dynamic> json) {
 mixin _$Identity {
   int get id => throw _privateConstructorUsedError;
   String get host => throw _privateConstructorUsedError;
-  ClientType get type => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   Map<String, String>? get headers => throw _privateConstructorUsedError;
 
+  /// Serializes this Identity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Identity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $IdentityCopyWith<Identity> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -37,12 +41,12 @@ abstract class $IdentityCopyWith<$Res> {
   factory $IdentityCopyWith(Identity value, $Res Function(Identity) then) =
       _$IdentityCopyWithImpl<$Res, Identity>;
   @useResult
-  $Res call(
-      {int id,
-      String host,
-      ClientType type,
-      String? username,
-      Map<String, String>? headers});
+  $Res call({
+    int id,
+    String host,
+    String? username,
+    Map<String, String>? headers,
+  });
 }
 
 /// @nodoc
@@ -55,37 +59,37 @@ class _$IdentityCopyWithImpl<$Res, $Val extends Identity>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Identity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? host = null,
-    Object? type = null,
     Object? username = freezed,
     Object? headers = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      host: null == host
-          ? _value.host
-          : host // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ClientType,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String?,
-      headers: freezed == headers
-          ? _value.headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            host: null == host
+                ? _value.host
+                : host // ignore: cast_nullable_to_non_nullable
+                      as String,
+            username: freezed == username
+                ? _value.username
+                : username // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            headers: freezed == headers
+                ? _value.headers
+                : headers // ignore: cast_nullable_to_non_nullable
+                      as Map<String, String>?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -93,16 +97,17 @@ class _$IdentityCopyWithImpl<$Res, $Val extends Identity>
 abstract class _$$IdentityImplCopyWith<$Res>
     implements $IdentityCopyWith<$Res> {
   factory _$$IdentityImplCopyWith(
-          _$IdentityImpl value, $Res Function(_$IdentityImpl) then) =
-      __$$IdentityImplCopyWithImpl<$Res>;
+    _$IdentityImpl value,
+    $Res Function(_$IdentityImpl) then,
+  ) = __$$IdentityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String host,
-      ClientType type,
-      String? username,
-      Map<String, String>? headers});
+  $Res call({
+    int id,
+    String host,
+    String? username,
+    Map<String, String>? headers,
+  });
 }
 
 /// @nodoc
@@ -110,53 +115,52 @@ class __$$IdentityImplCopyWithImpl<$Res>
     extends _$IdentityCopyWithImpl<$Res, _$IdentityImpl>
     implements _$$IdentityImplCopyWith<$Res> {
   __$$IdentityImplCopyWithImpl(
-      _$IdentityImpl _value, $Res Function(_$IdentityImpl) _then)
-      : super(_value, _then);
+    _$IdentityImpl _value,
+    $Res Function(_$IdentityImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of Identity
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
     Object? host = null,
-    Object? type = null,
     Object? username = freezed,
     Object? headers = freezed,
   }) {
-    return _then(_$IdentityImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      host: null == host
-          ? _value.host
-          : host // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ClientType,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String?,
-      headers: freezed == headers
-          ? _value._headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-    ));
+    return _then(
+      _$IdentityImpl(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        host: null == host
+            ? _value.host
+            : host // ignore: cast_nullable_to_non_nullable
+                  as String,
+        username: freezed == username
+            ? _value.username
+            : username // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        headers: freezed == headers
+            ? _value._headers
+            : headers // ignore: cast_nullable_to_non_nullable
+                  as Map<String, String>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$IdentityImpl implements _Identity {
-  const _$IdentityImpl(
-      {required this.id,
-      required this.host,
-      required this.type,
-      required this.username,
-      required final Map<String, String>? headers})
-      : _headers = headers;
+  const _$IdentityImpl({
+    required this.id,
+    required this.host,
+    required this.username,
+    required final Map<String, String>? headers,
+  }) : _headers = headers;
 
   factory _$IdentityImpl.fromJson(Map<String, dynamic> json) =>
       _$$IdentityImplFromJson(json);
@@ -165,8 +169,6 @@ class _$IdentityImpl implements _Identity {
   final int id;
   @override
   final String host;
-  @override
-  final ClientType type;
   @override
   final String? username;
   final Map<String, String>? _headers;
@@ -181,7 +183,7 @@ class _$IdentityImpl implements _Identity {
 
   @override
   String toString() {
-    return 'Identity(id: $id, host: $host, type: $type, username: $username, headers: $headers)';
+    return 'Identity(id: $id, host: $host, username: $username, headers: $headers)';
   }
 
   @override
@@ -191,18 +193,24 @@ class _$IdentityImpl implements _Identity {
             other is _$IdentityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.host, host) || other.host == host) &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             const DeepCollectionEquality().equals(other._headers, _headers));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, host, type, username,
-      const DeepCollectionEquality().hash(_headers));
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    host,
+    username,
+    const DeepCollectionEquality().hash(_headers),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Identity
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IdentityImplCopyWith<_$IdentityImpl> get copyWith =>
@@ -210,19 +218,17 @@ class _$IdentityImpl implements _Identity {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$IdentityImplToJson(
-      this,
-    );
+    return _$$IdentityImplToJson(this);
   }
 }
 
 abstract class _Identity implements Identity {
-  const factory _Identity(
-      {required final int id,
-      required final String host,
-      required final ClientType type,
-      required final String? username,
-      required final Map<String, String>? headers}) = _$IdentityImpl;
+  const factory _Identity({
+    required final int id,
+    required final String host,
+    required final String? username,
+    required final Map<String, String>? headers,
+  }) = _$IdentityImpl;
 
   factory _Identity.fromJson(Map<String, dynamic> json) =
       _$IdentityImpl.fromJson;
@@ -232,13 +238,14 @@ abstract class _Identity implements Identity {
   @override
   String get host;
   @override
-  ClientType get type;
-  @override
   String? get username;
   @override
   Map<String, String>? get headers;
+
+  /// Create a copy of Identity
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IdentityImplCopyWith<_$IdentityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -250,12 +257,15 @@ IdentityRequest _$IdentityRequestFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$IdentityRequest {
   String get host => throw _privateConstructorUsedError;
-  ClientType get type => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
   Map<String, String>? get headers => throw _privateConstructorUsedError;
 
+  /// Serializes this IdentityRequest to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of IdentityRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $IdentityRequestCopyWith<IdentityRequest> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -263,14 +273,11 @@ mixin _$IdentityRequest {
 /// @nodoc
 abstract class $IdentityRequestCopyWith<$Res> {
   factory $IdentityRequestCopyWith(
-          IdentityRequest value, $Res Function(IdentityRequest) then) =
-      _$IdentityRequestCopyWithImpl<$Res, IdentityRequest>;
+    IdentityRequest value,
+    $Res Function(IdentityRequest) then,
+  ) = _$IdentityRequestCopyWithImpl<$Res, IdentityRequest>;
   @useResult
-  $Res call(
-      {String host,
-      ClientType type,
-      String? username,
-      Map<String, String>? headers});
+  $Res call({String host, String? username, Map<String, String>? headers});
 }
 
 /// @nodoc
@@ -283,48 +290,45 @@ class _$IdentityRequestCopyWithImpl<$Res, $Val extends IdentityRequest>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of IdentityRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? host = null,
-    Object? type = null,
     Object? username = freezed,
     Object? headers = freezed,
   }) {
-    return _then(_value.copyWith(
-      host: null == host
-          ? _value.host
-          : host // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ClientType,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String?,
-      headers: freezed == headers
-          ? _value.headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            host: null == host
+                ? _value.host
+                : host // ignore: cast_nullable_to_non_nullable
+                      as String,
+            username: freezed == username
+                ? _value.username
+                : username // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            headers: freezed == headers
+                ? _value.headers
+                : headers // ignore: cast_nullable_to_non_nullable
+                      as Map<String, String>?,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$IdentityRequestImplCopyWith<$Res>
     implements $IdentityRequestCopyWith<$Res> {
-  factory _$$IdentityRequestImplCopyWith(_$IdentityRequestImpl value,
-          $Res Function(_$IdentityRequestImpl) then) =
-      __$$IdentityRequestImplCopyWithImpl<$Res>;
+  factory _$$IdentityRequestImplCopyWith(
+    _$IdentityRequestImpl value,
+    $Res Function(_$IdentityRequestImpl) then,
+  ) = __$$IdentityRequestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String host,
-      ClientType type,
-      String? username,
-      Map<String, String>? headers});
+  $Res call({String host, String? username, Map<String, String>? headers});
 }
 
 /// @nodoc
@@ -332,55 +336,52 @@ class __$$IdentityRequestImplCopyWithImpl<$Res>
     extends _$IdentityRequestCopyWithImpl<$Res, _$IdentityRequestImpl>
     implements _$$IdentityRequestImplCopyWith<$Res> {
   __$$IdentityRequestImplCopyWithImpl(
-      _$IdentityRequestImpl _value, $Res Function(_$IdentityRequestImpl) _then)
-      : super(_value, _then);
+    _$IdentityRequestImpl _value,
+    $Res Function(_$IdentityRequestImpl) _then,
+  ) : super(_value, _then);
 
+  /// Create a copy of IdentityRequest
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? host = null,
-    Object? type = null,
     Object? username = freezed,
     Object? headers = freezed,
   }) {
-    return _then(_$IdentityRequestImpl(
-      host: null == host
-          ? _value.host
-          : host // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as ClientType,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String?,
-      headers: freezed == headers
-          ? _value._headers
-          : headers // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-    ));
+    return _then(
+      _$IdentityRequestImpl(
+        host: null == host
+            ? _value.host
+            : host // ignore: cast_nullable_to_non_nullable
+                  as String,
+        username: freezed == username
+            ? _value.username
+            : username // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        headers: freezed == headers
+            ? _value._headers
+            : headers // ignore: cast_nullable_to_non_nullable
+                  as Map<String, String>?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$IdentityRequestImpl implements _IdentityRequest {
-  const _$IdentityRequestImpl(
-      {required this.host,
-      required this.type,
-      this.username,
-      final Map<String, String>? headers})
-      : _headers = headers;
+  const _$IdentityRequestImpl({
+    required this.host,
+    this.username,
+    final Map<String, String>? headers,
+  }) : _headers = headers;
 
   factory _$IdentityRequestImpl.fromJson(Map<String, dynamic> json) =>
       _$$IdentityRequestImplFromJson(json);
 
   @override
   final String host;
-  @override
-  final ClientType type;
   @override
   final String? username;
   final Map<String, String>? _headers;
@@ -395,7 +396,7 @@ class _$IdentityRequestImpl implements _IdentityRequest {
 
   @override
   String toString() {
-    return 'IdentityRequest(host: $host, type: $type, username: $username, headers: $headers)';
+    return 'IdentityRequest(host: $host, username: $username, headers: $headers)';
   }
 
   @override
@@ -404,38 +405,43 @@ class _$IdentityRequestImpl implements _IdentityRequest {
         (other.runtimeType == runtimeType &&
             other is _$IdentityRequestImpl &&
             (identical(other.host, host) || other.host == host) &&
-            (identical(other.type, type) || other.type == type) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             const DeepCollectionEquality().equals(other._headers, _headers));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, host, type, username,
-      const DeepCollectionEquality().hash(_headers));
+  int get hashCode => Object.hash(
+    runtimeType,
+    host,
+    username,
+    const DeepCollectionEquality().hash(_headers),
+  );
 
-  @JsonKey(ignore: true)
+  /// Create a copy of IdentityRequest
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$IdentityRequestImplCopyWith<_$IdentityRequestImpl> get copyWith =>
       __$$IdentityRequestImplCopyWithImpl<_$IdentityRequestImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$IdentityRequestImplToJson(
-      this,
-    );
+    return _$$IdentityRequestImplToJson(this);
   }
 }
 
 abstract class _IdentityRequest implements IdentityRequest {
-  const factory _IdentityRequest(
-      {required final String host,
-      required final ClientType type,
-      final String? username,
-      final Map<String, String>? headers}) = _$IdentityRequestImpl;
+  const factory _IdentityRequest({
+    required final String host,
+    final String? username,
+    final Map<String, String>? headers,
+  }) = _$IdentityRequestImpl;
 
   factory _IdentityRequest.fromJson(Map<String, dynamic> json) =
       _$IdentityRequestImpl.fromJson;
@@ -443,13 +449,14 @@ abstract class _IdentityRequest implements IdentityRequest {
   @override
   String get host;
   @override
-  ClientType get type;
-  @override
   String? get username;
   @override
   Map<String, String>? get headers;
+
+  /// Create a copy of IdentityRequest
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$IdentityRequestImplCopyWith<_$IdentityRequestImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

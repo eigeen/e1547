@@ -7,7 +7,6 @@ import 'package:e1547/settings/settings.dart';
 import 'package:e1547/tag/tag.dart';
 import 'package:flutter/material.dart';
 
-// TODO: this is e621 specific
 extension PostTagging on Post {
   bool hasTag(String tag) {
     if (tag.trim().isEmpty) return false;
@@ -47,8 +46,6 @@ extension PostTagging on Post {
           return isFavorited;
         case 'uploader':
         case 'user':
-          // This cannot be implemented, as it requires a user lookup
-          return false;
         case 'userid':
           NumberRange? range = NumberRange.tryParse(value);
           if (range == null) return false;
@@ -61,10 +58,12 @@ extension PostTagging on Post {
         case 'tagcount':
           NumberRange? range = NumberRange.tryParse(value);
           if (range == null) return false;
-          return range.has(tags.values.fold<int>(
-            0,
-            (previousValue, element) => previousValue + element.length,
-          ));
+          return range.has(
+            tags.values.fold<int>(
+              0,
+              (previousValue, element) => previousValue + element.length,
+            ),
+          );
       }
     }
 
@@ -73,12 +72,20 @@ extension PostTagging on Post {
 }
 
 extension PostDenying on Post {
-  bool isDeniedBy(List<String> denylist) => getDeniers(denylist) != null;
+  bool isDeniedBy(List<String> denylist) =>
+      getDeniers(denylist).iterator.moveNext();
 
-  List<String>? getDeniers(List<String> denylist) {
-    List<String> deniers = [];
-
+  Iterable<String> getDeniers(List<String> denylist) sync* {
     for (String line in denylist) {
+      line = line.trim();
+      if (line.isEmpty) continue;
+
+      int hash = line.indexOf('#');
+      if (hash != -1) {
+        line = line.substring(0, hash).trim();
+        if (line.isEmpty) continue;
+      }
+
       bool pass = true;
       bool isOptional = false;
       bool hasOptional = false;
@@ -124,18 +131,12 @@ extension PostDenying on Post {
 
       if (!pass) continue;
 
-      deniers.add(line);
+      yield line;
     }
-
-    return deniers.isEmpty ? null : deniers;
   }
 }
 
-enum PostType {
-  image,
-  video,
-  unsupported,
-}
+enum PostType { image, video, unsupported }
 
 extension PostTyping on Post {
   PostType get type {
@@ -211,29 +212,19 @@ mixin PostActionController<KeyType> on ClientDataController<KeyType, Post> {
     return rawItems![index];
   }
 
-  void replacePost(Post post) => updateItem(
-        rawItems?.indexWhere((e) => e.id == post.id) ?? -1,
-        post,
-      );
+  void replacePost(Post post) =>
+      updateItem(rawItems?.indexWhere((e) => e.id == post.id) ?? -1, post);
 
   Future<bool> fav(Post post) async {
     assertOwnsItem(post);
-    replacePost(
-      post.copyWith(
-        isFavorited: true,
-        favCount: post.favCount + 1,
-      ),
-    );
+    replacePost(post.copyWith(isFavorited: true, favCount: post.favCount + 1));
     try {
       await client.posts.addFavorite(post.id);
       evictCache();
       return true;
     } on ClientException {
       replacePost(
-        post.copyWith(
-          isFavorited: false,
-          favCount: post.favCount - 1,
-        ),
+        post.copyWith(isFavorited: false, favCount: post.favCount - 1),
       );
       return false;
     }
@@ -241,22 +232,14 @@ mixin PostActionController<KeyType> on ClientDataController<KeyType, Post> {
 
   Future<bool> unfav(Post post) async {
     assertOwnsItem(post);
-    replacePost(
-      post.copyWith(
-        isFavorited: false,
-        favCount: post.favCount - 1,
-      ),
-    );
+    replacePost(post.copyWith(isFavorited: false, favCount: post.favCount - 1));
     try {
       await client.posts.removeFavorite(post.id);
       evictCache();
       return true;
     } on ClientException {
       replacePost(
-        post.copyWith(
-          isFavorited: true,
-          favCount: post.favCount + 1,
-        ),
+        post.copyWith(isFavorited: true, favCount: post.favCount + 1),
       );
       return false;
     }
@@ -269,10 +252,11 @@ mixin PostActionController<KeyType> on ClientDataController<KeyType, Post> {
   }) async {
     assertOwnsItem(post);
     post = post.copyWith(
-        vote: post.vote.withVote(
-      upvote ? VoteStatus.upvoted : VoteStatus.downvoted,
-      replace,
-    ));
+      vote: post.vote.withVote(
+        upvote ? VoteStatus.upvoted : VoteStatus.downvoted,
+        replace,
+      ),
+    );
     replacePost(post);
     try {
       await client.posts.vote(post.id, upvote, replace);

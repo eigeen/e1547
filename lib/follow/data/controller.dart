@@ -4,16 +4,12 @@ import 'package:e1547/interface/interface.dart';
 import 'package:e1547/post/post.dart';
 
 class FollowTimelineController extends PostController {
-  FollowTimelineController({
-    required super.client,
-  }) : super(canSearch: false);
+  FollowTimelineController({required super.client}) : super(canSearch: false);
 
   @override
   Future<List<Post>> fetch(int page, bool force) async {
     List<Follow> follows = await client.follows.all(
-      query: FollowsQuery(
-        types: [FollowType.update, FollowType.notify],
-      ),
+      query: FollowsQuery(types: [FollowType.update, FollowType.notify]),
       force: force,
     );
     return client.posts.byTags(
@@ -53,10 +49,7 @@ class FollowController extends PageClientDataController<Follow> {
     if (page == 1) {
       result = client.follows
           .all(
-            query: FollowsQuery(
-              types: types,
-              hasUnseen: _filterUnseen,
-            ),
+            query: FollowsQuery(types: types, hasUnseen: _filterUnseen),
             force: force,
           )
           .stream;

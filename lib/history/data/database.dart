@@ -5,9 +5,6 @@ import 'package:e1547/history/history.dart';
 import 'package:e1547/identity/data/database.dart';
 import 'package:e1547/interface/interface.dart';
 
-// ignore: always_use_package_imports
-import 'database.drift.dart';
-
 @UseRowClass(History, generateInsertable: true)
 class HistoriesTable extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -22,34 +19,41 @@ class HistoriesTable extends Table {
 
 @DataClassName('HistoryIdentity')
 class HistoriesIdentitiesTable extends Table {
-  IntColumn get identity => integer().references(IdentitiesTable, #id,
-      onDelete: KeyAction.noAction, onUpdate: KeyAction.noAction)();
-  IntColumn get history => integer().references(HistoriesTable, #id,
-      onDelete: KeyAction.cascade, onUpdate: KeyAction.cascade)();
+  IntColumn get identity => integer().references(
+    IdentitiesTable,
+    #id,
+    onDelete: KeyAction.noAction,
+    onUpdate: KeyAction.noAction,
+  )();
+  IntColumn get history => integer().references(
+    HistoriesTable,
+    #id,
+    onDelete: KeyAction.cascade,
+    onUpdate: KeyAction.cascade,
+  )();
 
   @override
   Set<Column> get primaryKey => {identity, history};
 }
 
-@DriftAccessor(tables: [
-  HistoriesTable,
-  HistoriesIdentitiesTable,
-  IdentitiesTable,
-])
+@DriftAccessor(
+  tables: [HistoriesTable, HistoriesIdentitiesTable, IdentitiesTable],
+)
 class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
     with $HistoryRepositoryMixin {
   HistoryRepository({required GeneratedDatabase database}) : super(database);
 
-  StreamFuture<History> get(int id) =>
-      (select(historiesTable)..where((tbl) => tbl.id.equals(id)))
-          .watchSingle()
-          .future;
+  StreamFuture<History> get(int id) => (select(
+    historiesTable,
+  )..where((tbl) => tbl.id.equals(id))).watchSingle().future;
 
   Expression<bool> _identityQuery($HistoriesTableTable tbl, int? identity) {
     final subQuery = historiesIdentitiesTable.selectOnly()
       ..addColumns([historiesIdentitiesTable.history])
-      ..where(Variable(identity).isNull() |
-          historiesIdentitiesTable.identity.equalsNullable(identity));
+      ..where(
+        Variable(identity).isNull() |
+            historiesIdentitiesTable.identity.equalsNullable(identity),
+      );
 
     return tbl.id.isInQuery(subQuery);
   }
@@ -68,7 +72,7 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
   }) {
     final selectable = select(historiesTable)
       ..orderBy([
-        (t) => OrderingTerm(expression: t.visitedAt, mode: OrderingMode.desc)
+        (t) => OrderingTerm(expression: t.visitedAt, mode: OrderingMode.desc),
       ])
       ..where((tbl) => _identityQuery(tbl, identity));
     if (link != null) {
@@ -78,8 +82,9 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
       selectable.where((tbl) => tbl.title.regexp(title, caseSensitive: false));
     }
     if (subtitle != null) {
-      selectable
-          .where((tbl) => tbl.subtitle.regexp(subtitle, caseSensitive: false));
+      selectable.where(
+        (tbl) => tbl.subtitle.regexp(subtitle, caseSensitive: false),
+      );
     }
     if (category != null) {
       selectable.where((tbl) => tbl.category.isIn(category.map((e) => e.name)));
@@ -97,8 +102,10 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
       );
     }
     if (maxAge != null) {
-      selectable.where((tbl) =>
-          tbl.visitedAt.isBiggerThanValue(DateTime.now().subtract(maxAge)));
+      selectable.where(
+        (tbl) =>
+            tbl.visitedAt.isBiggerThanValue(DateTime.now().subtract(maxAge)),
+      );
     }
     assert(
       offset == null || limit != null,
@@ -139,8 +146,10 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
 
   StreamFuture<int> length({int? identity}) {
     final Expression<int> count = historiesTable.id.count();
-    final Expression<bool> identified =
-        _identityQuery(historiesTable, identity);
+    final Expression<bool> identified = _identityQuery(
+      historiesTable,
+      identity,
+    );
 
     return (selectOnly(historiesTable)
           ..where(identified)
@@ -153,8 +162,10 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
   StreamFuture<List<DateTime>> days({int? identity}) {
     final Expression<DateTime> time = historiesTable.visitedAt;
     final Expression<String> date = historiesTable.visitedAt.date;
-    final Expression<bool> identified =
-        _identityQuery(historiesTable, identity);
+    final Expression<bool> identified = _identityQuery(
+      historiesTable,
+      identity,
+    );
 
     return (selectOnly(historiesTable)
           ..where(identified)
@@ -176,8 +187,11 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
             ..where((tbl) => tbl.category.equals(item.category.name))
             ..where((tbl) => tbl.type.equals(item.type.name))
             ..where((tbl) => tbl.subtitle.equalsNullable(item.subtitle))
-            ..where((tbl) => tbl.thumbnails.equalsNullable(
-                JsonSqlConverter.list().toSql(item.thumbnails))))
+            ..where(
+              (tbl) => tbl.thumbnails.equalsNullable(
+                JsonSqlConverter.list().toSql(item.thumbnails),
+              ),
+            ))
           .get()
           .then((e) => e.isNotEmpty);
 
@@ -213,9 +227,9 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
     required int maxAmount,
     required Duration maxAge,
     int? identity,
-  }) =>
-      transaction(
-        () => (delete(historiesTable)
+  }) => transaction(
+    () =>
+        (delete(historiesTable)
               ..where((tbl) => _identityQuery(tbl, identity))
               ..where(
                 (tbl) => tbl.id.isNotInQuery(
@@ -227,5 +241,5 @@ class HistoryRepository extends DatabaseAccessor<GeneratedDatabase>
                 ),
               ))
             .go(),
-      );
+  );
 }

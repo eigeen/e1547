@@ -6,10 +6,8 @@ import 'package:e1547/traits/traits.dart';
 import 'package:flutter/foundation.dart';
 
 class TraitsService extends TraitsRepository with ChangeNotifier {
-  TraitsService({
-    required GeneratedDatabase database,
-    this.onCreate,
-  }) : super(database);
+  TraitsService({required GeneratedDatabase database, this.onCreate})
+    : super(database);
 
   StreamSubscription<Traits?>? _subscription;
 
@@ -40,9 +38,9 @@ class TraitsService extends TraitsRepository with ChangeNotifier {
     notifyListeners();
   }
 
-  Stream<Traits?> _find(int id) =>
-      (select(traitsTable)..where((tbl) => tbl.id.equals(id)))
-          .watchSingleOrNull();
+  Stream<Traits?> _find(int id) => (select(
+    traitsTable,
+  )..where((tbl) => tbl.id.equals(id))).watchSingleOrNull();
 
   Future<void> _onChanged(Traits? value) async {
     if (value == null) {
