@@ -1,4 +1,4 @@
-package net.e1547
+package com.eigeen.e1547
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 
